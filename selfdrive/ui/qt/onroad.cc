@@ -497,6 +497,7 @@ void NvgWindow::drawLead(QPainter &painter, const cereal::ModelDataV2::LeadDataV
 }
 
 void NvgWindow::paintGL() {
+  double t = millis_since_boot();
   UIState *s = uiState();
   const cereal::ModelDataV2::Reader &model = (*s->sm)["modelV2"].getModelV2();
   CameraViewWidget::setFrameId(model.getFrameId());
@@ -522,6 +523,7 @@ void NvgWindow::paintGL() {
   }
 
   drawHud(painter);
+  qDebug() << "Took" << (millis_since_boot() - t) << "ms";
 
   double cur_draw_t = millis_since_boot();
   double dt = cur_draw_t - prev_draw_t;
